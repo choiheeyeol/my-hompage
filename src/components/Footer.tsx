@@ -1,6 +1,6 @@
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
-import { Mail, Phone, MapPin, Printer } from 'lucide-react';
+import { Mail, Phone, MapPin, Printer, Sparkles } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -57,6 +57,12 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-slate-800 pt-8 mt-8 text-xs text-center md:text-left flex flex-col md:flex-row justify-between items-center">
           <p>&copy; {new Date().getFullYear()} 최희열 세무회계사무소. All rights reserved.</p>
+          <div className="flex items-center justify-center md:justify-start text-slate-500">
+              <Sparkles className="w-3 h-3 mr-1 text-amber-600/60" />
+              <span>This website was crafted with the assistance of AI.</span>
+            </div>
+          </div>
+
           <div className="mt-4 md:mt-0 space-x-4">
              <a href="/privacy.html" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>
              <a href="/terms.html" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">이용약관</a>
