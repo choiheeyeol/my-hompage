@@ -6,6 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 상단: 사무소 정보 및 연락처 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-white text-2xl font-bold mb-4">최희열 세무회계사무소</h2>
@@ -55,15 +56,17 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-slate-800 pt-8 mt-8 text-xs text-center md:text-left flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} 최희열 세무회계사무소. All rights reserved.</p>
-          <div className="flex items-center justify-center md:justify-start text-slate-500">
+        {/* 하단: 저작권, AI 문구 및 법적 링크 */}
+        <div className="border-t border-slate-800 pt-8 mt-8 text-xs text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col gap-2">
+            <p>&copy; {new Date().getFullYear()} 최희열 세무회계사무소. All rights reserved.</p>
+            <div className="flex items-center justify-center md:justify-start text-slate-500">
               <Sparkles className="w-3 h-3 mr-1 text-amber-600/60" />
               <span>This website was crafted with the assistance of AI.</span>
             </div>
           </div>
 
-          <div className="mt-4 md:mt-0 space-x-4">
+          <div className="flex space-x-4">
              <a href="/privacy.html" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>
              <a href="/terms.html" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">이용약관</a>
           </div>
