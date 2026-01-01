@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Send, Phone, Clock, ChevronRight, RotateCcw } from 'lucide-react';
 
+// GTM dataLayer 타입을 위한 선언
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 const ContactCTA: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,7 +31,6 @@ const ContactCTA: React.FC = () => {
     "기타 문의",
   ];
 
-  // 구글 설문지 설정 (세무사님이 주신 상세 메시지 entry.812510821 포함)
   const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLScGHwnt6SUrNvP-oKE9Wo6_AL_xPBzdCHYQ-XY8_zEniT1bTQ/viewform?embedded=true";
   const ENTRY_IDS = {
     name: "entry.2005620554",
@@ -54,6 +60,17 @@ const ContactCTA: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // [구글 연동 핵심] GTM 데이터 전송
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        'event': 'form_submission',
+        'ga4_id': 'G-CMZRDGY4K0',
+        'consult_category': formData.category,
+        'user_name': formData.name
+      });
+    }
+
     setIsSubmitted(true);
   };
 
@@ -66,12 +83,16 @@ const ContactCTA: React.FC = () => {
     params.append(ENTRY_IDS.name, formData.name);
     params.append(ENTRY_IDS.phone, formData.phone);
     params.append(ENTRY_IDS.category, formData.category);
-    params.append(ENTRY_IDS.message, formData.message); // 상세 내용 연동
+    
+    // 추가 정보를 메시지란에 함께 전송
+    const extraInfo = `\n\n[추가 정보]\n사업형태: ${formData.businessType}\n직원유무: ${formData.hasEmployee}\n진행단계: ${formData.lifecycleStage || formData.propertyAction || '기본'}`;
+    params.append(ENTRY_IDS.message, formData.message + extraInfo); 
+    
     return `${GOOGLE_FORM_BASE_URL}&${params.toString()}`;
   };
 
   const renderDynamicFields = () => {
-    // 1. 사업 생애주기 컨설팅
+    // 1. 사업 생애주기 컨설팅 (모든 세부 옵션 복구)
     if (formData.category === "사업 생애주기 및 위기 관리 컨설팅") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -132,7 +153,7 @@ const ContactCTA: React.FC = () => {
       );
     }
 
-    // 2. 기장 대리 / 세무 조정
+    // 2. 기장 대리 / 세무 조정 (모든 필드 복구)
     if (formData.category === "기장 대리 및 세무 신고" || formData.category === "세무 조정 및 기업 재무 진단") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -159,7 +180,7 @@ const ContactCTA: React.FC = () => {
       );
     }
 
-    // 3. 재산세제
+    // 3. 재산세제 (모든 필드 복구)
     if (formData.category === "재산세제 (양도·상속·증여)") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -185,7 +206,6 @@ const ContactCTA: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
           
-          {/* 왼쪽 안내 영역 */}
           <div className="lg:w-1/2 p-10 md:p-14 flex flex-col justify-center bg-slate-800 text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
             <div className="relative z-10">
@@ -202,7 +222,6 @@ const ContactCTA: React.FC = () => {
                     <p className="text-xl font-bold tracking-wide">0507-1407-2553</p>
                   </div>
                 </div>
-                {/* 상담 시간 문구 영역 */}
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400 border border-amber-500/30"><Clock className="w-6 h-6" /></div>
                   <div>
@@ -215,7 +234,6 @@ const ContactCTA: React.FC = () => {
             </div>
           </div>
 
-          {/* 오른쪽 폼 영역 */}
           <div className="lg:w-1/2 p-10 md:p-14 bg-white overflow-y-auto max-h-[850px]">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-5">
