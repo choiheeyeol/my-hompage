@@ -24,12 +24,13 @@ const ContactCTA: React.FC = () => {
     "기타 문의",
   ];
 
-  // 구글 설문지 설정
+  // 구글 설문지 설정 (세무사님이 주신 상세 메시지 entry.812510821 포함)
   const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLScGHwnt6SUrNvP-oKE9Wo6_AL_xPBzdCHYQ-XY8_zEniT1bTQ/viewform?embedded=true";
   const ENTRY_IDS = {
     name: "entry.2005620554",
     phone: "entry.1045781291",
-    category: "entry.1404194098"
+    category: "entry.1404194098",
+    message: "entry.812510821" 
   };
 
   const formatPhoneNumber = (value: string) => {
@@ -65,11 +66,12 @@ const ContactCTA: React.FC = () => {
     params.append(ENTRY_IDS.name, formData.name);
     params.append(ENTRY_IDS.phone, formData.phone);
     params.append(ENTRY_IDS.category, formData.category);
+    params.append(ENTRY_IDS.message, formData.message); // 상세 내용 연동
     return `${GOOGLE_FORM_BASE_URL}&${params.toString()}`;
   };
 
   const renderDynamicFields = () => {
-    // 1. 사업 생애주기 및 위기 관리 컨설팅 선택 시
+    // 1. 사업 생애주기 컨설팅
     if (formData.category === "사업 생애주기 및 위기 관리 컨설팅") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -130,7 +132,7 @@ const ContactCTA: React.FC = () => {
       );
     }
 
-    // 2. 기장/세무조정 선택 시
+    // 2. 기장 대리 / 세무 조정
     if (formData.category === "기장 대리 및 세무 신고" || formData.category === "세무 조정 및 기업 재무 진단") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -157,7 +159,7 @@ const ContactCTA: React.FC = () => {
       );
     }
 
-    // 3. 재산세제 선택 시
+    // 3. 재산세제
     if (formData.category === "재산세제 (양도·상속·증여)") {
       return (
         <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -183,6 +185,7 @@ const ContactCTA: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
           
+          {/* 왼쪽 안내 영역 */}
           <div className="lg:w-1/2 p-10 md:p-14 flex flex-col justify-center bg-slate-800 text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
             <div className="relative z-10">
@@ -199,10 +202,20 @@ const ContactCTA: React.FC = () => {
                     <p className="text-xl font-bold tracking-wide">0507-1407-2553</p>
                   </div>
                 </div>
+                {/* 상담 시간 문구 영역 */}
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400 border border-amber-500/30"><Clock className="w-6 h-6" /></div>
+                  <div>
+                    <p className="text-sm text-slate-400">상담 가능 시간</p>
+                    <p className="text-lg mb-1 font-semibold">평일 10:00 - 17:00</p>
+                    <p className="text-xs text-slate-400 font-light leading-relaxed">※ 부재 시 메시지를 남겨주시면 확인 후 연락드립니다.</p> 
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
+          {/* 오른쪽 폼 영역 */}
           <div className="lg:w-1/2 p-10 md:p-14 bg-white overflow-y-auto max-h-[850px]">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -240,9 +253,9 @@ const ContactCTA: React.FC = () => {
               <div className="w-full animate-in fade-in duration-700">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-amber-700 italic">정밀 진단 진행 중...</h3>
-                  <button onClick={handleGoHome} className="flex items-center space-x-1 text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 px-3 py-2 rounded-full transition-all">
+                  <button onClick={handleGoHome} className="flex items-center space-x-1 text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 px-3 py-2 rounded-full transition-all border border-slate-200">
                     <RotateCcw size={14} />
-                    <span>설문 완료/메인으로 이동</span>
+                    <span>메인으로 이동</span>
                   </button>
                 </div>
                 <iframe
