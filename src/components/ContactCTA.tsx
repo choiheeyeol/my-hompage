@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Send, Phone, Clock, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Send, Phone, Clock, ChevronRight, RotateCcw } from 'lucide-react';
 
 const ContactCTA: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -9,12 +9,12 @@ const ContactCTA: React.FC = () => {
     category: '기장 대리 및 세무 신고',
   });
 
-  // 구글 설문지 설정 (미리 채워진 링크 ID를 확인하여 교체하세요)
-  const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLScGHwnt6SUrNvP-oKE9Wo6_AL_xPBzdCHYQ-XY8_zEniT1bTQ/viewform?usp=dialog";
+  // 구글 설문지 설정
+  const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLScGHwnt6SUrNvP-oKE9Wo6_AL_xPBzdCHYQ-XY8_zEniT1bTQ/viewform?embedded=true";
   const ENTRY_IDS = {
-    name: "entry.2005620554",    // 성함 필드 ID
-    phone: "entry.1045781291",   // 연락처 필드 ID
-    category: "entry.1404194098"  // 상담분야 필드 ID
+    name: "entry.2005620554",
+    phone: "entry.1045781291",
+    category: "entry.1404194098"
   };
 
   // 연락처 자동 하이픈 기능
@@ -37,10 +37,14 @@ const ContactCTA: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true); // 버튼 클릭 시 임베드된 설문지를 보여줌
+    setIsSubmitted(true);
   };
 
-  // 데이터를 포함한 구글 설문지 URL 생성
+  // 홈페이지 메인으로 돌아가는 함수
+  const handleGoHome = () => {
+    window.location.href = "/";
+  };
+
   const getPrefilledUrl = () => {
     const params = new URLSearchParams();
     params.append(ENTRY_IDS.name, formData.name);
@@ -54,7 +58,7 @@ const ContactCTA: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
           
-          {/* 왼쪽 안내 영역 */}
+          {/* [디자인 유지] 왼쪽 안내 영역 */}
           <div className="lg:w-1/3 p-10 md:p-14 flex flex-col justify-center bg-slate-800 text-white relative">
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-6">전문 기초 진단</h2> 
@@ -63,7 +67,9 @@ const ContactCTA: React.FC = () => {
               </p>
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400 border border-amber-500/30"><Phone className="w-6 h-6" /></div>
+                  <div className="w-12 h-12 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400 border border-amber-500/30">
+                    <Phone className="w-6 h-6" />
+                  </div>
                   <div>
                     <p className="text-sm text-slate-400">문의</p>
                     <p className="text-xl font-bold">0507-1407-2553</p>
@@ -73,7 +79,7 @@ const ContactCTA: React.FC = () => {
             </div>
           </div>
 
-          {/* 오른쪽 폼/설문지 영역 */}
+          {/* [디자인 유지] 오른쪽 영역 */}
           <div className="lg:w-2/3 p-6 md:p-10 bg-white">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -107,16 +113,19 @@ const ContactCTA: React.FC = () => {
               <div className="w-full animate-in fade-in duration-700">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-amber-700 italic">InOn.Tax 정밀 진단 진행 중...</h3>
-                  <button onClick={() => setIsSubmitted(false)} className="text-xs text-slate-400 hover:text-slate-600 underline">수정하기</button>
+                  <button 
+                    onClick={handleGoHome}
+                    className="flex items-center space-x-1 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors bg-slate-100 px-3 py-2 rounded-full"
+                  >
+                    <RotateCcw size={14} />
+                    <span>설문 완료/메인으로 이동</span>
+                  </button>
                 </div>
-                {/* 구글 설문지 임베드 */}
                 <iframe
                   src={getPrefilledUrl()}
                   width="100%"
                   height="700"
                   frameBorder="0"
-                  marginHeight={0}
-                  marginWidth={0}
                   className="rounded-xl border border-slate-200 shadow-inner"
                 >
                   로드 중…
