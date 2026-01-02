@@ -10,10 +10,15 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-white text-2xl font-bold mb-4">최희열 세무회계사무소</h2>
-            <p className="text-sm leading-relaxed mb-4 max-w-sm">
-              고객의 성공이 곧 우리의 성공입니다.<br/>
-              정직하고 투명한 세무 서비스로 보답하겠습니다.
-            </p>
+            <div className="text-sm leading-relaxed mb-4 max-w-sm space-y-1">
+              <p className="text-slate-300 font-medium">
+                대표자: 최희열 | 사업자등록번호: [119-12-26520]
+              </p>
+              <p className="pt-2">
+                고객의 성공이 곧 우리의 성공입니다.<br/>
+                정직하고 투명한 세무 서비스로 보답하겠습니다.
+              </p>
+            </div>
           </div>
           
           <div className="col-span-1 md:col-span-2 lg:col-span-2">
