@@ -33,8 +33,8 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center">
-               <span className="font-serif text-xl font-bold text-slate-900 tracking-tight cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                 인온<span className="text-amber-600">.Tax</span>
+               <span className="font-serif text-lg md:text-xl font-bold text-slate-900 tracking-tight cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                 최희열<span className="text-amber-600"> 세무회계사무소</span>
                </span>
             </div>
             
