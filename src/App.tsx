@@ -34,7 +34,7 @@ const App: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center">
                <span className="font-serif text-lg md:text-xl font-bold text-slate-900 tracking-tight cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                 최희열<span className="text-amber-600"> 세무회계사무소</span>
+                 <span className="text-amber-600">최희열</span> 세무회계사무소
                </span>
             </div>
             
