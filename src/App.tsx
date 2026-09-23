@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import Header from './components/Header';
 import CoreValues from './components/CoreValues';
 import Introduction from './components/Introduction';
@@ -81,6 +81,17 @@ const App: React.FC = () => {
       </main>
       
       <Footer />
+    
+      {/* 카카오톡 상담 플로팅 버튼 */}
+      <a
+        href="http://pf.kakao.com/_vBlxjM"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#FEE500] hover:bg-[#FDD800] rounded-full shadow-lg transition-transform hover:scale-105"
+        aria-label="카카오톡 상담하기"
+      >
+        <MessageCircle className="w-7 h-7 text-[#3C1E1E]" fill="#3C1E1E" />
+      </a>
     </div>
   );
 };
