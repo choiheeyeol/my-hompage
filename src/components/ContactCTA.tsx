@@ -264,13 +264,13 @@ const ContactCTA: React.FC = () => {
                 </div>
 
                 <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-lg transition-all shadow-md transform active:scale-[0.98]">
-                  상담 데이터 분석 및 컨설팅 신청
+                  1:1 맞춤 세무상담 신청
                 </button>
               </form>
             ) : (
               <div className="w-full animate-in fade-in duration-700">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-amber-700 italic">정밀 진단 진행 중...</h3>
+                  <h3 className="text-lg font-bold text-amber-700 italic">상담 신청 접수 중...</h3>
                   <button onClick={handleGoHome} className="flex items-center space-x-1 text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 px-3 py-2 rounded-full transition-all border border-slate-200">
                     <RotateCcw size={14} />
                     <span>메인으로 이동</span>
